@@ -7,9 +7,7 @@ services:
         volumes:
             - ./:/var/www
         ports:
-            - "8098:80"
-        depends_on:
-            - php-fpm
+            - "8083:80"
         links:
             - php-fpm
     php-fpm:
@@ -18,11 +16,6 @@ services:
             dockerfile: docker/php-fpm.docker
         volumes:
             - ./:/var/www
-        ports:
-            - "9000:9000"
-        depends_on:
-            - mysql
-            - redis
         links:
             - mysql
             - redis
