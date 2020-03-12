@@ -24,10 +24,15 @@ Breadcrumbs::register('verify', function (BreadcrumbsGenerator $crumbs) {
 
 Breadcrumbs::register('password.request', function (BreadcrumbsGenerator $crumbs) {
     $crumbs->parent('login');
-    $crumbs->push('Request Password', route('password.request'));
+    $crumbs->push('Reset Password', route('password.request'));
 });
 
 Breadcrumbs::register('password.reset', function (BreadcrumbsGenerator $crumbs) {
-    $crumbs->parent('login');
-    $crumbs->push('Reset Password', route('password.reset'));
+    $crumbs->parent('password.request');
+    $crumbs->push('Change Password', route('password.reset'));
+});
+
+Breadcrumbs::register('cabinet', function (BreadcrumbsGenerator $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Cabinet', route('cabinet'));
 });
