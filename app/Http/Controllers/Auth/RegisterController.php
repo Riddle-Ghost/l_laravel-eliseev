@@ -16,31 +16,8 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/cabinet';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
@@ -75,7 +52,8 @@ class RegisterController extends Controller
 
     public function verify($token)
     {
-        if (!$user = User::where('verify_token', $token)->first()) {
+        $user = User::where('verify_token', $token)->first();
+        if (!$user) {
             return redirect()->route('login')
                 ->with('error', 'Sorry/ Your link cannot be identified');
         }
