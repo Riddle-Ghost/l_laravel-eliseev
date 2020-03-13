@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
@@ -35,4 +36,26 @@ Breadcrumbs::register('password.reset', function (BreadcrumbsGenerator $crumbs) 
 Breadcrumbs::register('cabinet', function (BreadcrumbsGenerator $crumbs) {
     $crumbs->parent('home');
     $crumbs->push('Cabinet', route('cabinet'));
+});
+
+//Админка//
+Breadcrumbs::register('admin.home', function (BreadcrumbsGenerator $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Admin', route('admin.home'));
+});
+Breadcrumbs::register('admin.users.index', function (BreadcrumbsGenerator $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Users', route('admin.users.index'));
+});
+Breadcrumbs::register('admin.users.create', function (BreadcrumbsGenerator $crumbs) {
+    $crumbs->parent('admin.users.index');
+    $crumbs->push('Create', route('admin.users.create'));
+});
+Breadcrumbs::register('admin.users.show', function (BreadcrumbsGenerator $crumbs, User $user) {
+    $crumbs->parent('admin.users.index');
+    $crumbs->push($user->name, route('admin.users.show', $user));
+});
+Breadcrumbs::register('admin.users.edit', function (BreadcrumbsGenerator $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push('Edit', route('admin.users.edit', $user));
 });
