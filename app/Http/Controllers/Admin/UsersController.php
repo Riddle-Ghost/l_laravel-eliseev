@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\Users\CreateRequest;
+use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
+use App\Services\Auth\RegisterService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
+    protected $service;
+
+    public function __construct(RegisterService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +25,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'desk')->paginate(20);
+        $users = User::orderBy('id', 'desc')->paginate(20);
 
         return view('admin.users.index', compact('users'));
     }
@@ -37,13 +46,8 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-        ]);
-
         $user = User::create([
             $request->only(['name', 'email']),
             'status' => User::STATUS_ACTIVE
@@ -71,11 +75,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $statuses = [
-            User::STATUS_WAIT => 'Waiting',
-            User::STATUS_ACTIVE => 'Active',
-        ];
-        return view('admin.users.edit', compact('user','statuses'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -85,15 +85,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
-        $data = $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,id,' . $user->id,
-            'status' => ['required', 'string', Rule::in([User::STATUS_WAIT, User::STATUS_ACTIVE])],
-        ]);
-
-        $user->update($data);
+        $user->update($request->only(['name', 'email', 'status']));
 
         return redirect()->route('admin.users.show', $user);
     }
@@ -109,6 +103,14 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index');
+
+    }
+
+    public function verify(User $user)
+    {
+        $this->service->verify($user->id);
+
+        return redirect()->route('admin.users.show', $user);
 
     }
 }

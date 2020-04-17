@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * Class User
@@ -48,7 +50,45 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function create(array $array)
+    public static function register(string $name, string $email, string $password): self
     {
+        return static::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'verify_token' => Str::uuid(),
+            'status' => self::STATUS_WAIT,
+        ]);
+    }
+    // Create user by admin
+    public static function new(string $name, string $email): self
+    {
+        return static::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make(Str::random()),
+            'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+
+    public function isWait(): bool
+    {
+        return $this->status === self::STATUS_WAIT;
+    }
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function verify(): void
+    {
+        if (!$this->isWait()) {
+            throw new \DomainException('User is already verified');
+        }
+
+        $this->update([
+            'status' => self::STATUS_ACTIVE,
+            'verify_token' => null,
+        ]);
     }
 }
