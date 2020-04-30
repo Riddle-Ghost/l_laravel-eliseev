@@ -2,7 +2,7 @@
 
 
 ---
-App|
+app|
 ---
 <<<|Models
 - public const STATUS_WAIT = 'wait'
@@ -18,3 +18,15 @@ App|
 <<<|Controllers
 
 <<<|Services
+
+database|
+---
+<<<|migrations
+
+routes|
+---
+<<<|web.php
+
+tests|
+---
+<<<|Unit
