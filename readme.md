@@ -2,7 +2,8 @@
 
 
 ---
-App| <br>
+App|
+---
 <<<|Models
 - public const STATUS_WAIT = 'wait'
         
