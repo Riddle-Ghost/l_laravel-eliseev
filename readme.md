@@ -3,7 +3,7 @@
 
 ---
 App| <br>
-    |Models
+<<<|Models
 - public const STATUS_WAIT = 'wait'
         
         Константы лучше делать строкой в БД, чтобы не заморачиваться с цифрами
