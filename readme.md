@@ -14,3 +14,7 @@ App|
 - public function verify(): void
 
         Метод в модели, чтобы не писать в контроллере (для удобства тестов в первую очередь ?)
+        
+<<<|Controllers
+
+<<<|Services
