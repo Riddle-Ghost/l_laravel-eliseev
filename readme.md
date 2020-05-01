@@ -33,10 +33,28 @@ database|
 ---
 <<<|migrations
 
+---
+<<<|factories
+
+- $factory->state(User::class, 'admin', [ 'email' => 'admin@admin.admin', ]);
+
+        Создаем стейт для фабрики, который можно будет вызывать отдельно
+        
+---
+<<<|seeds
+
+- factory(User::class, 1)->states('admin')->create();
+
+    Создаем экземпляр нужного стейта фабрики
+
 routes|
 ---
 <<<|web.php
 
+- Route::group( [ 'prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth'], ], function() {} );
+
+        Группируем роуты
+        
 tests|
 ---
 <<<|Unit
