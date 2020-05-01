@@ -6,9 +6,7 @@ use App\Http\Requests\Admin\Users\CreateRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
 use App\Services\Auth\RegisterService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
