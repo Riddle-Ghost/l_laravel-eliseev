@@ -16,6 +16,9 @@ app|
         Метод в модели, чтобы не писать в контроллере|сервисе (для удобства тестов в первую очередь ?). Кидает exeption, ловим в try/catch
         
 <<<|Controllers
+- public function show(User $user) (Admin/UsersController)
+
+        Не передаем выпадающий список статусов юзеров active|wait, вместо этого используем метод verify, кот-ый меняет wait на active
 
 <<<|Services
 
