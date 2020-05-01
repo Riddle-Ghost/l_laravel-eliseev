@@ -18,7 +18,7 @@ app|
 <<<|Controllers
 - public function show(User $user) (Admin/UsersController)
 
-        Не передаем выпадающий список статусов юзеров active|wait, вместо этого используем метод verify, кот-ый меняет wait на active
+        Не передаем в вид выпадающий список статусов юзеров active|wait, вместо этого используем метод verify, кот-ый меняет wait на active
 
 <<<|Services
 
