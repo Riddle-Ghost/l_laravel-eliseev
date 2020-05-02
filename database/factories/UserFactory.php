@@ -26,6 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
         'status' => $active ? User::STATUS_ACTIVE : User::STATUS_WAIT,
+        'role' => User::ROLE_USER,
         'email_verified_at' => $active ? now() : null,
         'verify_token' => $active ? null : Str::uuid(),
     ];
@@ -35,6 +36,7 @@ $factory->state(User::class, 'admin', [
     'name' => 'admin',
     'email' => 'admin@admin.admin',
     'status' => User::STATUS_ACTIVE,
+    'role' => User::ROLE_ADMIN,
     'email_verified_at' => now(),
     'verify_token' => null,
 ]);
