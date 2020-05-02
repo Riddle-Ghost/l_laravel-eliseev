@@ -6,10 +6,13 @@
     <div class="d-flex flex-row mb-3">
         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary mr-1">Edit</a>
 
-        <form method="POST" action="{{ route('admin.users.verify', $user) }}" class="mr-1">
-            @csrf
-            <button class="btn btn-danger">Verify</button>
-        </form>
+        @if ($user->isWait())
+            <form method="POST" action="{{ route('admin.users.verify', $user) }}" class="mr-1">
+                @csrf
+                <button class="btn btn-success">Verify</button>
+            </form>
+        @endif
+
         <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="mr-1">
             @csrf
             @method('DELETE')
@@ -36,6 +39,16 @@
                 @endif
                 @if ($user->isActive())
                     <span class="badge badge-primary">Active</span>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td>
+                @if ($user->isAdmin())
+                    <span class="badge badge-danger">Admin</span>
+                @else
+                    <span class="badge badge-secondary">User</span>
                 @endif
             </td>
         </tr>
