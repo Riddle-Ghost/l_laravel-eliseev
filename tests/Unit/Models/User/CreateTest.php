@@ -2,12 +2,14 @@
 
 namespace Tests\Unit\Models\User;
 
-use App\Models\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateTest extends TestCase
 {
+    use DatabaseTransactions;
+    
     public function testNew(): void
     {
         $user = User::new(
@@ -22,5 +24,6 @@ class CreateTest extends TestCase
         self::assertNotEmpty($user->password);
 
         self::assertTrue($user->isActive());
+        self::assertFalse($user->isAdmin());
     }
 }

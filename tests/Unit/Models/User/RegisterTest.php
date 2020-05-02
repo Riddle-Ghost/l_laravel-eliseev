@@ -3,11 +3,13 @@
 namespace Tests\Unit\Models\User;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function testRequest(): void
     {
         $user = User::register(
@@ -26,6 +28,7 @@ class RegisterTest extends TestCase
 
         self::assertTrue($user->isWait());
         self::assertFalse($user->isActive());
+        self::assertFalse($user->isAdmin());
     }
 
     public function testVerify(): void
