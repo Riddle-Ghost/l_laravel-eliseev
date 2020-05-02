@@ -23,13 +23,16 @@ class User extends Authenticatable
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
 
+    public const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status', 'verify_token'
+        'name', 'email', 'password', 'status', 'verify_token', 'role'
     ];
 
     /**
@@ -38,7 +41,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'status', 'verify_token'
+        'password', 'remember_token', 'verify_token'
     ];
 
     /**
@@ -58,6 +61,7 @@ class User extends Authenticatable
             'password' => Hash::make($password),
             'verify_token' => Str::uuid(),
             'status' => self::STATUS_WAIT,
+            'role' => self::ROLE_USER,
         ]);
     }
     // Create user by admin
@@ -68,6 +72,7 @@ class User extends Authenticatable
             'email' => $email,
             'password' => Hash::make(Str::random()),
             'status' => self::STATUS_ACTIVE,
+            'role' => self::ROLE_USER,
         ]);
     }
 
@@ -91,5 +96,25 @@ class User extends Authenticatable
             'verify_token' => null,
             'email_verified_at' => now(),
         ]);
+    }
+
+    public function isAdmin() : bool
+    {
+
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function changeRole($role) : void
+    {
+
+        if ( !\in_array($role, [self::ROLE_ADMIN, self::ROLE_USER], true) ) {
+
+            throw new \InvalidArgumentException('Undefined Role "' . $role . '"');
+        }
+        if ($this->role === $role) {
+
+            throw new \DomainException('Role is already assigned.');
+        }
+        $this->update(['role' => $role]);
     }
 }
