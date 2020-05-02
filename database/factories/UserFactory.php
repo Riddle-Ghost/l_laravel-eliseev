@@ -27,7 +27,7 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'status' => $active ? User::STATUS_ACTIVE : User::STATUS_WAIT,
         'email_verified_at' => $active ? now() : null,
-        'verify_token' => !$active ? Str::uuid() : null,
+        'verify_token' => $active ? null : Str::uuid(),
     ];
 });
 

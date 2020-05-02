@@ -89,6 +89,7 @@ class User extends Authenticatable
         $this->update([
             'status' => self::STATUS_ACTIVE,
             'verify_token' => null,
+            'email_verified_at' => now(),
         ]);
     }
 }
