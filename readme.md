@@ -63,6 +63,15 @@ tests|
 
         Трейт, который откатывает БД после выполнения теста. Например user создался-удалился ?
 
+---
+webpack.mix.js
+    
+        mix
+            .setPublicPath('public/build') //sets the base output path for any mix assets. Fonts, images etc.
+            .setResourceRoot('/build/') // sets the base output path in the generated assets relative to the public root (e.g. url('/css/fonts/font.tty'));
+            .js('resources/assets/js/app.js', 'js')
+            .sass('resources/assets/sass/app.scss', 'css')
+            .version(); // Чтобы добавлялось версионирование в названии файлов (сбрасывались css и тд)
 
 Подходы в разработке
 ---
