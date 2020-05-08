@@ -51,6 +51,14 @@ database|
 
     Создаем экземпляр нужного стейта фабрики
 
+resources|
+---
+<<<|views|layouts|app.blade.php
+
+    mix() - путь до css, js, прописанный в ларавел миксе вебпака
+    <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
+    <script src="{{ mix('js/app.js', 'build') }}"></script>
+
 routes|
 ---
 <<<|web.php
