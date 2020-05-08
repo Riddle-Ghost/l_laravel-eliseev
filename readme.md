@@ -1,5 +1,8 @@
+В проекте использовались
+---
 
-
+- Breadcrumbs
+- Nestedset (https://github.com/lazychaser/laravel-nestedset)
 
 ---
 app|
