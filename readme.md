@@ -3,6 +3,7 @@
 
 - Breadcrumbs
 - Nestedset (https://github.com/lazychaser/laravel-nestedset)
+- Phpunit tests
 
 ---
 app|
