@@ -5,4 +5,7 @@
     <li class="nav-item">
         <a href="{{ route('admin.users.index') }}" class="nav-link active">Users</a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.regions.index') }}" class="nav-link">Regions</a>
+    </li>
 </ul>

@@ -24,5 +24,13 @@
 </ul> -->
 
 <ul class="nav nav-tabs mb-3">
-    something
+    <li class="nav-item">
+        <a href="{{ route('admin.home') }}" class="nav-link active">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.users.index') }}" class="nav-link">Users</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.regions.index') }}" class="nav-link">Regions</a>
+    </li>
 </ul>
