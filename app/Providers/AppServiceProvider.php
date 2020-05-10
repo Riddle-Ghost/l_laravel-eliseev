@@ -2,28 +2,25 @@
 
 namespace App\Providers;
 
+use App\Services\Banner\CostCalculator;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function boot(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function register(): void
     {
-        Schema::defaultStringLength(191);
+        $this->app->singleton(CostCalculator::class, function (Application $app) {
+            $config = $app->make('config')->get('banner');
+            return new CostCalculator($config['price']);
+        });
+
+        Passport::ignoreMigrations();
     }
 }
