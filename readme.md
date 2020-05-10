@@ -1,5 +1,9 @@
+В проекте использовались
+---
 
-
+- Breadcrumbs (https://github.com/davejamesmiller/laravel-breadcrumbs) Неподдерживаемый
+- Nestedset (https://github.com/lazychaser/laravel-nestedset)
+- Phpunit tests
 
 ---
 app|
@@ -47,6 +51,14 @@ database|
 
     Создаем экземпляр нужного стейта фабрики
 
+resources|
+---
+<<<|views|layouts|app.blade.php
+
+    mix() - путь до css, js, прописанный в ларавел миксе вебпака
+    <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
+    <script src="{{ mix('js/app.js', 'build') }}"></script>
+
 routes|
 ---
 <<<|web.php
@@ -59,10 +71,21 @@ tests|
 ---
 <<<|Unit
 
+        Лучше в методы передавать параметры, чем вызывать изнутри, для упрощения тестов. Например передаем дату-время в метод, чтобы можно было в тестах сделать токен 10 минут назад и тп
+
 - use DatabaseTransactions;
 
         Трейт, который откатывает БД после выполнения теста. Например user создался-удалился ?
 
+---
+webpack.mix.js
+    
+        mix
+            .setPublicPath('public/build') //sets the base output path for any mix assets. Fonts, images etc.
+            .setResourceRoot('/build/') // sets the base output path in the generated assets relative to the public root (e.g. url('/css/fonts/font.tty'));
+            .js('resources/assets/js/app.js', 'js')
+            .sass('resources/assets/sass/app.scss', 'css')
+            .version(); // Чтобы добавлялось версионирование в названии файлов (сбрасывались css и тд)
 
 Подходы в разработке
 ---
