@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Ticket;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class EditRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,8 +14,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string',
-            'password' => 'required|string',
+            'subject' => 'required|string|max:255',
+            'content' => 'required|string',
         ];
     }
 }

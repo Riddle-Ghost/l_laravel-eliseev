@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Banner;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class EditRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,8 +14,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string',
-            'password' => 'required|string',
+            'name' => 'required|string',
+            'limit' => 'required|integer',
+            'url' => 'required|url',
         ];
     }
 }
