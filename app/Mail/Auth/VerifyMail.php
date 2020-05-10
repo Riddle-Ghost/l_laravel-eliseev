@@ -2,15 +2,13 @@
 
 namespace App\Mail\Auth;
 
-use App\Models\User;
-use Illuminate\Bus\Queueable;
+use App\Models\User\User;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class VerifyMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     public $user;
 
@@ -19,13 +17,10 @@ class VerifyMail extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->markdown('emails.auth.register.verify');
+        return $this
+            ->subject('Signup Confirmation')
+            ->markdown('emails.auth.register.verify');
     }
 }
