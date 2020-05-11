@@ -44,8 +44,8 @@ class Category extends Model
         return array_merge($this->parentAttributes(), $this->attributes()->orderBy('sort')->getModels());
     }
 
-    // public function attributes()
-    // {
-    //     return $this->hasMany(Attribute::class, 'category_id', 'id');
-    // }
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class, 'category_id', 'id');
+    }
 }

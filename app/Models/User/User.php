@@ -1,25 +1,37 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
+use App\Models\Adverts\Advert\Advert;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
+use Laravel\Passport\HasApiTokens;
 
 /**
- * Class User
- * @package App\Models
  * @property int $id
  * @property string $name
+ * @property string $last_name
  * @property string $email
+ * @property string $phone
+ * @property bool $phone_verified
+ * @property string $password
+ * @property string $verify_token
+ * @property string $phone_verify_token
+ * @property Carbon $phone_verify_token_expire
+ * @property boolean $phone_auth
+ * @property string $role
  * @property string $status
+ *
+ * @property Network[] networks
+ *
+ * @method Builder byNetwork(string $network, string $identity)
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
@@ -42,10 +54,11 @@ class User extends Authenticatable
         'phone_auth' => 'boolean',
     ];
 
-    public static function rolesList()
+    public static function rolesList(): array
     {
         return [
             self::ROLE_USER => 'User',
+            self::ROLE_MODERATOR => 'Moderator',
             self::ROLE_ADMIN => 'Admin',
         ];
     }
@@ -55,21 +68,38 @@ class User extends Authenticatable
         return static::create([
             'name' => $name,
             'email' => $email,
-            'password' => Hash::make($password),
+            'password' => bcrypt($password),
             'verify_token' => Str::uuid(),
-            'status' => self::STATUS_WAIT,
             'role' => self::ROLE_USER,
+            'status' => self::STATUS_WAIT,
         ]);
     }
-    // Create user by admin
-    public static function new(string $name, string $email): self
+
+    public static function registerByNetwork(string $network, string $identity): self
+    {
+        $user = static::create([
+            'name' => $identity,
+            'email' => null,
+            'password' => null,
+            'verify_token' => null,
+            'role' => self::ROLE_USER,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+        $user->networks()->create([
+            'network' => $network,
+            'identity' => $identity,
+        ]);
+        return $user;
+    }
+
+    public static function new($name, $email): self
     {
         return static::create([
             'name' => $name,
             'email' => $email,
-            'password' => Hash::make(Str::random()),
-            'status' => self::STATUS_ACTIVE,
+            'password' => bcrypt(Str::random()),
             'role' => self::ROLE_USER,
+            'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -77,6 +107,7 @@ class User extends Authenticatable
     {
         return $this->status === self::STATUS_WAIT;
     }
+
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;
@@ -85,31 +116,21 @@ class User extends Authenticatable
     public function verify(): void
     {
         if (!$this->isWait()) {
-            throw new \DomainException('User is already verified');
+            throw new \DomainException('User is already verified.');
         }
 
         $this->update([
             'status' => self::STATUS_ACTIVE,
             'verify_token' => null,
-            'email_verified_at' => now(),
         ]);
     }
 
-    public function isAdmin() : bool
+    public function changeRole($role): void
     {
-
-        return $this->role === self::ROLE_ADMIN;
-    }
-
-    public function changeRole($role) : void
-    {
-
-        if ( !\in_array($role, [self::ROLE_ADMIN, self::ROLE_USER], true) ) {
-
-            throw new \InvalidArgumentException('Undefined Role "' . $role . '"');
+        if (!array_key_exists($role, self::rolesList())) {
+            throw new \InvalidArgumentException('Undefined role "' . $role . '"');
         }
         if ($this->role === $role) {
-
             throw new \DomainException('Role is already assigned.');
         }
         $this->update(['role' => $role]);
@@ -167,5 +188,70 @@ class User extends Authenticatable
     {
         $this->phone_auth = false;
         $this->saveOrFail();
+    }
+
+    public function addToFavorites($id): void
+    {
+        if ($this->hasInFavorites($id)) {
+            throw new \DomainException('This advert is already added to favorites.');
+        }
+        $this->favorites()->attach($id);
+    }
+
+    public function removeFromFavorites($id): void
+    {
+        $this->favorites()->detach($id);
+    }
+
+    public function hasInFavorites($id): bool
+    {
+        return $this->favorites()->where('id', $id)->exists();
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->role === self::ROLE_MODERATOR;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isPhoneVerified(): bool
+    {
+        return $this->phone_verified;
+    }
+
+    public function isPhoneAuthEnabled(): bool
+    {
+        return (bool)$this->phone_auth;
+    }
+
+    public function hasFilledProfile(): bool
+    {
+        return !empty($this->name) && !empty($this->last_name) && $this->isPhoneVerified();
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Advert::class, 'advert_favorites', 'user_id', 'advert_id');
+    }
+
+    public function networks()
+    {
+        return $this->hasMany(Network::class, 'user_id', 'id');
+    }
+
+    public function scopeByNetwork(Builder $query, string $network, string $identity): Builder
+    {
+        return $query->whereHas('networks', function(Builder $query) use ($network, $identity) {
+            $query->where('network', $network)->where('identity', $identity);
+        });
+    }
+
+    public function findForPassport($identifier)
+    {
+        return self::where('email', $identifier)->where('status', self::STATUS_ACTIVE)->first();
     }
 }
