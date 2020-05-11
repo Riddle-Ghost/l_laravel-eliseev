@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Models\User;
+use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\RegisterService;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    protected $service;
+    private $service;
 
     public function __construct(RegisterService $service)
     {
@@ -31,24 +27,21 @@ class RegisterController extends Controller
         $this->service->register($request);
 
         return redirect()->route('login')
-            ->with('success', 'Check Your email and click url to verify');
+            ->with('success', 'Check your email and click on the link to verify.');
     }
 
     public function verify($token)
     {
-        $user = User::where('verify_token', $token)->first();
-        if (!$user) {
+        if (!$user = User::where('verify_token', $token)->first()) {
             return redirect()->route('login')
-                ->with('error', 'Sorry/ Your link cannot be identified');
+                ->with('error', 'Sorry your link cannot be identified.');
         }
 
         try {
             $this->service->verify($user->id);
-            return redirect()->route('login')
-                ->with('success', 'Your email is verified. You can now login');
+            return redirect()->route('login')->with('success', 'Your e-mail is verified. You can now login.');
         } catch (\DomainException $e) {
-            return redirect()->route('login')
-                ->with('error', $e->getMessage());
+            return redirect()->route('login')->with('error', $e->getMessage());
         }
     }
 }

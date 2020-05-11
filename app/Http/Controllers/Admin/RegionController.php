@@ -10,7 +10,7 @@ class RegionController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('can:manage-regions');
+        $this->middleware('can:manage-regions');
     }
 
     public function index()

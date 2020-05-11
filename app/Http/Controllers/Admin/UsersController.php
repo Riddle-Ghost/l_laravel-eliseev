@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
+use App\Models\User\User;
 use App\Http\Requests\Admin\Users\CreateRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Http\Controllers\Controller;
@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function __construct(RegisterService $register)
     {
         $this->register = $register;
-        // $this->middleware('can:manage-users');
+        $this->middleware('can:manage-users');
     }
 
     public function index(Request $request)
