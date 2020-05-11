@@ -2,7 +2,7 @@
 
 namespace App\Services\Profile;
 
-use App\Models\User;
+use App\Models\User\User;
 use App\Http\Requests\Auth\ProfileEditRequest;
 
 class ProfileService

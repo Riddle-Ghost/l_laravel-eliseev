@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models\User;
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -22,7 +22,6 @@ class RegisterTest extends TestCase
 
         self::assertEquals($name, $user->name);
         self::assertEquals($email, $user->email);
-
         self::assertNotEmpty($user->password);
         self::assertNotEquals($password, $user->password);
 
@@ -40,12 +39,13 @@ class RegisterTest extends TestCase
         self::assertFalse($user->isWait());
         self::assertTrue($user->isActive());
     }
+
     public function testAlreadyVerified(): void
     {
         $user = User::register('name', 'email', 'password');
-
         $user->verify();
-        $this->expectExceptionMessage('User is already verified');
+
+        $this->expectExceptionMessage('User is already verified.');
         $user->verify();
     }
 }

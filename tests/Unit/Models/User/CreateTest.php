@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Models\User;
 
-use Tests\TestCase;
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
     use DatabaseTransactions;
-    
+
     public function testNew(): void
     {
         $user = User::new(

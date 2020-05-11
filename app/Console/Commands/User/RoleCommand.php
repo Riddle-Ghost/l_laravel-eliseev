@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\User;
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Console\Command;
 
 class RoleCommand extends Command
