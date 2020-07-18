@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\User;
 
-use App\Models\User\User;
-use App\Services\Auth\RegisterService;
+use App\Entity\User\User;
+use App\UseCases\Auth\RegisterService;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Page;
+use App\Entity\Page;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Pages\PageRequest;
 

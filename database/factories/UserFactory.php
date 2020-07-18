@@ -1,10 +1,9 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Entity\User\User;
 use Carbon\Carbon;
-use App\Models\User\User;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +16,8 @@ use Faker\Generator as Faker;
 |
 */
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 $factory->define(User::class, function (Faker $faker) {
     $active = $faker->boolean;
     $phoneActive = $faker->boolean;
@@ -27,7 +28,7 @@ $factory->define(User::class, function (Faker $faker) {
         'phone' => $faker->unique()->phoneNumber,
         'phone_verified' => $phoneActive,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => Str::random(10),
+        'remember_token' => str_random(10),
         'verify_token' => $active ? null : Str::uuid(),
         'phone_verify_token' => $phoneActive ? null : Str::uuid(),
         'phone_verify_token_expire' => $phoneActive ? null : Carbon::now()->addSeconds(300),
@@ -35,16 +36,3 @@ $factory->define(User::class, function (Faker $faker) {
         'status' => $active ? User::STATUS_ACTIVE : User::STATUS_WAIT,
     ];
 });
-
-$factory->state(User::class, 'admin', [
-    'name' => 'admin',
-    'last_name' => 'admin',
-    'email' => 'admin@admin.admin',
-    'phone_verified' => true,
-    'status' => User::STATUS_ACTIVE,
-    'role' => User::ROLE_ADMIN,
-    'email_verified_at' => now(),
-    'verify_token' => null,
-    'phone_verify_token' => null,
-    'phone_verify_token_expire' => null,
-]);

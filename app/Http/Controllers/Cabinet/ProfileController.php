@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ProfileEditRequest;
-use App\Services\Profile\ProfileService;
+use App\UseCases\Profile\ProfileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

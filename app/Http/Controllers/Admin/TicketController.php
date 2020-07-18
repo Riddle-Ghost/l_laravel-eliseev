@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Ticket\Status;
-use App\Models\Ticket\Ticket;
+use App\Entity\Ticket\Status;
+use App\Entity\Ticket\Ticket;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\EditRequest;
 use App\Http\Requests\Ticket\MessageRequest;
-use App\Services\Tickets\TicketService;
+use App\UseCases\Tickets\TicketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Cabinet;
 
-use App\Models\Adverts\Advert\Advert;
+use App\Entity\Adverts\Advert\Advert;
 use App\Http\Controllers\Controller;
-use App\Services\Adverts\FavoriteService;
+use App\UseCases\Adverts\FavoriteService;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller

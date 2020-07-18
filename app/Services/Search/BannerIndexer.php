@@ -2,8 +2,8 @@
 
 namespace App\Services\Search;
 
-use App\Models\Banner\Banner;
-use App\Models\Region;
+use App\Entity\Banner\Banner;
+use App\Entity\Region;
 use Elasticsearch\Client;
 
 class BannerIndexer

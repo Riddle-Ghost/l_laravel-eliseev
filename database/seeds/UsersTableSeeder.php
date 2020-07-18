@@ -1,18 +1,12 @@
 <?php
 
+use App\Entity\User\User;
 use Illuminate\Database\Seeder;
-use App\Models\User\User;
 
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        factory(User::class, 1)->states('admin')->create();
         factory(User::class, 10)->create();
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Adverts\Category;
-use App\Models\Region;
+use App\Entity\Adverts\Category;
+use App\Entity\Region;
 
 class HomeController extends Controller
 {

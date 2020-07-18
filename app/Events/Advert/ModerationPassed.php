@@ -2,7 +2,7 @@
 
 namespace App\Events\Advert;
 
-use App\Models\Adverts\Advert\Advert;
+use App\Entity\Adverts\Advert\Advert;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 

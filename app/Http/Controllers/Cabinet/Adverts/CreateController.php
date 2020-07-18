@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Cabinet\Adverts;
 
-use App\Models\Adverts\Category;
-use App\Models\Region;
+use App\Entity\Adverts\Category;
+use App\Entity\Region;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Adverts\CreateRequest;
-use App\Services\Adverts\AdvertService;
+use App\UseCases\Adverts\AdvertService;
 use Illuminate\Support\Facades\Auth;
 
 class CreateController extends Controller

@@ -2,7 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Page;
+use App\Entity\Page;
 use Illuminate\View\View;
 
 class MenuPagesComposer

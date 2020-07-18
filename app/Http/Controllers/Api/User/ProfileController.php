@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Models\User\User;
+use App\Entity\User\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ProfileEditRequest;
 use App\Http\Resources\User\ProfileResource;
-use App\Services\Profile\ProfileService;
+use App\UseCases\Profile\ProfileService;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Adverts;
 
-use App\Models\Adverts\Advert\Advert;
-use App\Models\Adverts\Category;
-use App\Models\Region;
+use App\Entity\Adverts\Advert\Advert;
+use App\Entity\Adverts\Category;
+use App\Entity\Region;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Adverts\SearchRequest;
 use App\Http\Router\AdvertsPath;
 use App\ReadModel\AdvertReadRepository;
-use App\Services\Adverts\SearchService;
+use App\UseCases\Adverts\SearchService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

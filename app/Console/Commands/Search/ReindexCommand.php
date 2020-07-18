@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\Search;
 
-use App\Models\Adverts\Advert\Advert;
-use App\Models\Banner\Banner;
+use App\Entity\Adverts\Advert\Advert;
+use App\Entity\Banner\Banner;
 use App\Services\Search\AdvertIndexer;
 use App\Services\Search\BannerIndexer;
 use Illuminate\Console\Command;

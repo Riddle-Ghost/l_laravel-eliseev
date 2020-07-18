@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\User\User;
+use App\Entity\User\User;
 use App\Services\Sms\SmsSender;
 use Illuminate\Notifications\Notification;
 

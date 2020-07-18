@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Models\Adverts\Advert\Advert;
+use App\Entity\Adverts\Advert\Advert;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Adverts\AdvertDetailResource;
-use App\Services\Adverts\FavoriteService;
+use App\UseCases\Adverts\FavoriteService;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller

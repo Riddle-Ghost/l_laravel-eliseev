@@ -2,7 +2,7 @@
 
 namespace App\Http\Router;
 
-use App\Models\Page;
+use App\Entity\Page;
 use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Support\Facades\Cache;
 

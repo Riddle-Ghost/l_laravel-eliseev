@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Advert;
 
-use App\Models\Adverts\Advert\Advert;
+use App\Entity\Adverts\Advert\Advert;
 use App\Services\Search\AdvertIndexer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

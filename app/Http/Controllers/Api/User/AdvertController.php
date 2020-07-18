@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Models\Adverts\Advert\Advert;
-use App\Models\Adverts\Category;
-use App\Models\Region;
+use App\Entity\Adverts\Advert\Advert;
+use App\Entity\Adverts\Category;
+use App\Entity\Region;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Adverts\AttributesRequest;
 use App\Http\Requests\Adverts\CreateRequest;
@@ -12,7 +12,7 @@ use App\Http\Requests\Adverts\EditRequest;
 use App\Http\Requests\Adverts\PhotosRequest;
 use App\Http\Resources\Adverts\AdvertDetailResource;
 use App\Http\Resources\Adverts\AdvertListResource;
-use App\Services\Adverts\AdvertService;
+use App\UseCases\Adverts\AdvertService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;

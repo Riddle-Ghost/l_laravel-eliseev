@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Banner;
 
-use App\Models\Banner\Banner;
+use App\Entity\Banner\Banner;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Predis\Client;

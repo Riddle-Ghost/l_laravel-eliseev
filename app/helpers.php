@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Adverts\Category;
-use App\Models\Page;
-use App\Models\Region;
+use App\Entity\Adverts\Category;
+use App\Entity\Page;
+use App\Entity\Region;
 use App\Http\Router\AdvertsPath;
 use App\Http\Router\PagePath;
 

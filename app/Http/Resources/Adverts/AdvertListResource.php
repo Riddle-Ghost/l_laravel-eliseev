@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Adverts;
 
-use App\Models\Adverts\Advert\Photo;
-use App\Models\Adverts\Category;
-use App\Models\Region;
-use App\Models\User\User;
+use App\Entity\Adverts\Advert\Photo;
+use App\Entity\Adverts\Category;
+use App\Entity\Region;
+use App\Entity\User\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;

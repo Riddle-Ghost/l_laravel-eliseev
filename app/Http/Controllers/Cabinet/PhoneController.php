@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PhoneVerifyRequest;
-use App\Services\Profile\PhoneService;
+use App\UseCases\Profile\PhoneService;
 use Illuminate\Support\Facades\Auth;
 
 class PhoneController extends Controller

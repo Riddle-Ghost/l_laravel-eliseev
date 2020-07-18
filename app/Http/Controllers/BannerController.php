@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banner\Banner;
-use App\Services\Banners\BannerService;
+use App\Entity\Banner\Banner;
+use App\UseCases\Banners\BannerService;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller

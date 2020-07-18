@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Cabinet\Banners;
 
-use App\Models\Adverts\Category;
-use App\Models\Banner\Banner;
-use App\Models\Region;
+use App\Entity\Adverts\Category;
+use App\Entity\Banner\Banner;
+use App\Entity\Region;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Banner\CreateRequest;
-use App\Services\Banners\BannerService;
+use App\UseCases\Banners\BannerService;
 use Illuminate\Support\Facades\Auth;
 
 class CreateController extends Controller

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Cabinet\Banners;
 
-use App\Models\Banner\Banner;
+use App\Entity\Banner\Banner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Banner\EditRequest;
 use App\Http\Requests\Banner\FileRequest;
-use App\Services\Banners\BannerService;
+use App\UseCases\Banners\BannerService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 

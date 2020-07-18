@@ -1,103 +1,59 @@
-В проекте использовались
----
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-- Breadcrumbs (https://github.com/davejamesmiller/laravel-breadcrumbs) Неподдерживаемый
-- Nestedset (https://github.com/lazychaser/laravel-nestedset)
-- Phpunit tests
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
----
-app|
----
-<<<|Models
-- public const STATUS_WAIT = 'wait'
-        
-        Константы лучше делать строкой в БД, чтобы не заморачиваться с цифрами
-- public function isWait(): bool
+## About Laravel
 
-        Методы, которые возвращают свойство модели. Чтобы не писать в других клссах и главное в view длинные строки с логикой
-- public function verify(): void
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-        Метод в модели, чтобы не писать в контроллере|сервисе (для удобства тестов в первую очередь ?). Кидает exeption, ловим в try/catch
-        
----
-<<<|Controllers
-- public function show(User $user) (Admin/UsersController)
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-        Не передаем в вид выпадающий список статусов юзеров active|wait, вместо этого используем метод verify, кот-ый меняет wait на active
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
----
-<<<|Services
+## Learning Laravel
 
-    Сервисы нужны для переиспользования методов. Например верификация юзера в RegisterController и Admin\UsersController
-- public function verify($id): void
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
 
-        Лучше принимать id юзера и получать его внутри сервиса (чтобы случайно не передать измененного юзера в контроллере или типа того ?)
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-database|
----
-<<<|migrations
+## Laravel Sponsors
 
----
-<<<|factories
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
 
-- $factory->state(User::class, 'admin', [ 'email' => 'admin@admin.admin', ]);
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Pulse Storm](http://www.pulsestorm.net/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
 
-        Создаем стейт для фабрики, который можно будет вызывать отдельно
-        
----
-<<<|seeds
+## Contributing
 
-- factory(User::class, 1)->states('admin')->create();
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-    Создаем экземпляр нужного стейта фабрики
+## Security Vulnerabilities
 
-resources|
----
-<<<|views|layouts|app.blade.php
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-    mix() - путь до css, js, прописанный в ларавел миксе вебпака
-    <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
-    <script src="{{ mix('js/app.js', 'build') }}"></script>
+## License
 
-routes|
----
-<<<|web.php
-
-- Route::group( [ 'prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth'], ], function() {} );
-
-        Группируем роуты
-        
-tests|
----
-<<<|Unit
-
-        Лучше в методы передавать параметры, чем вызывать изнутри, для упрощения тестов. Например передаем дату-время в метод, чтобы можно было в тестах сделать токен 10 минут назад и тп
-
-- use DatabaseTransactions;
-
-        Трейт, который откатывает БД после выполнения теста. Например user создался-удалился ?
-
----
-webpack.mix.js
-    
-        mix
-            .setPublicPath('public/build') //sets the base output path for any mix assets. Fonts, images etc.
-            .setResourceRoot('/build/') // sets the base output path in the generated assets relative to the public root (e.g. url('/css/fonts/font.tty'));
-            .js('resources/assets/js/app.js', 'js')
-            .sass('resources/assets/sass/app.scss', 'css')
-            .version(); // Чтобы добавлялось версионирование в названии файлов (сбрасывались css и тд)
-
-Подходы в разработке
----
-RAD
-
-    Быстрая разработка. Фигак и в продакшн. Код в контроллерах
-Service Layer
-
-    Вынесение логики в сервисы. Для переиспользования методов в разных местах.
-Command Bus
-
-    Для больших проектов. Если сервисы слишком распухают и  не справляются
-CQRS
-
-    Query Bus. Тоже только для больших проектов. Усложняет код. НАпример, если 2 БД в проекте и 2 набора сущностей 
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

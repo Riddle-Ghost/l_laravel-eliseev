@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\Adverts\Advert\Advert;
-use App\Models\Adverts\Attribute;
-use App\Models\Adverts\Category;
-use App\Models\Banner\Banner;
-use App\Models\Page;
-use App\Models\Region;
-use App\Models\Ticket\Ticket;
-use App\Models\User\User;
+use App\Entity\Adverts\Advert\Advert;
+use App\Entity\Adverts\Attribute;
+use App\Entity\Adverts\Category;
+use App\Entity\Banner\Banner;
+use App\Entity\Page;
+use App\Entity\Region;
+use App\Entity\Ticket\Ticket;
+use App\Entity\User\User;
 use App\Http\Router\AdvertsPath;
 use App\Http\Router\PagePath;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;

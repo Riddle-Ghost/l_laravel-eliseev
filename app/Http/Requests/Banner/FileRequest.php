@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Banner;
 
-use App\Models\Banner\Banner;
+use App\Entity\Banner\Banner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

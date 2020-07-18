@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Cabinet;
 
-use App\Models\Ticket\Ticket;
+use App\Entity\Ticket\Ticket;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\CreateRequest;
 use App\Http\Requests\Ticket\MessageRequest;
-use App\Services\Tickets\TicketService;
+use App\UseCases\Tickets\TicketService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 

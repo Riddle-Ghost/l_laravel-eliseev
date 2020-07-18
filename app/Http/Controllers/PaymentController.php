@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banner\Banner;
+use App\Entity\Banner\Banner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

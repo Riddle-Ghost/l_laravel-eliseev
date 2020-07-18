@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Cabinet\Adverts;
 
-use App\Models\Adverts\Advert\Advert;
+use App\Entity\Adverts\Advert\Advert;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
